@@ -2,7 +2,7 @@
  * Chiral Static Client - Complete Bundle
  * 
  * Version: 1.0.0
- * Build: 2025-06-26T07:14:56.748Z
+ * Build: 2025-06-26T07:23:45.037Z
  * Mode: production
  * 
  * This file contains all necessary modules for the Chiral Static Client.
@@ -1904,12 +1904,18 @@ if (typeof module !== 'undefined' && module.exports) {
 
     // Capture current script reference immediately during execution
     const currentExecutingScript = document.currentScript;
+    ChiralUtils.log('Captured currentScript', 'info', currentExecutingScript);
 
     // Auto-initialization from global config or data attributes
     function performAutoInitialization() {
         ChiralUtils.log('performAutoInitialization called', 'info');
         
         // Method 1: Global config (existing)
+        ChiralUtils.log('Checking for window.ChiralConfig', 'info', { 
+            exists: typeof window.ChiralConfig !== 'undefined',
+            value: window.ChiralConfig 
+        });
+        
         if (typeof window.ChiralConfig !== 'undefined') {
             try {
                 ChiralUtils.log('Auto-initializing from window.ChiralConfig', 'info');
@@ -1925,6 +1931,11 @@ if (typeof module !== 'undefined' && module.exports) {
             let scriptToCheck = null;
             
             // First try to use the captured script reference
+            ChiralUtils.log('Checking captured script', 'info', { 
+                currentExecutingScript: currentExecutingScript,
+                hasAutoInit: currentExecutingScript ? currentExecutingScript.getAttribute('data-auto-init') : null
+            });
+            
             if (currentExecutingScript && currentExecutingScript.getAttribute('data-auto-init') === 'true') {
                 scriptToCheck = currentExecutingScript;
                 ChiralUtils.log('Found captured script with auto-init', 'info');
@@ -1945,7 +1956,14 @@ if (typeof module !== 'undefined' && module.exports) {
                 const container = scriptToCheck.getAttribute('data-container') || 'chiral-related-posts';
                 const count = parseInt(scriptToCheck.getAttribute('data-count')) || 5;
                 
-                ChiralUtils.log('Script attributes found', 'info', { hubUrl, nodeId, container, count });
+                ChiralUtils.log('Script element found', 'info', scriptToCheck);
+                ChiralUtils.log('Raw attributes', 'info', {
+                    'data-hub-url': scriptToCheck.getAttribute('data-hub-url'),
+                    'data-node-id': scriptToCheck.getAttribute('data-node-id'),
+                    'data-container': scriptToCheck.getAttribute('data-container'),
+                    'data-count': scriptToCheck.getAttribute('data-count')
+                });
+                ChiralUtils.log('Processed values', 'info', { hubUrl, nodeId, container, count });
                 
                 if (hubUrl && nodeId) {
                     try {
