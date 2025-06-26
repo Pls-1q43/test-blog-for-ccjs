@@ -2,7 +2,7 @@
  * Chiral Static Client - Complete Bundle
  * 
  * Version: 1.0.0
- * Build: 2025-06-26T07:47:13.062Z
+ * Build: 2025-06-26T08:28:47.877Z
  * Mode: production
  * 
  * This file contains all necessary modules for the Chiral Static Client.
@@ -1123,58 +1123,82 @@ class ChiralAPI {
 
     /**
      * Get related post IDs from WordPress.com API
-     * Ported from Chiral-Connector's get_related_post_ids_from_wp_api method
+     * Uses GET request to avoid CORS issues with POST
      * @param {string} siteIdentifier - Site domain
      * @param {number} postId - Post ID
      * @param {number} size - Number of related posts to fetch
      * @returns {Promise<Object>} API response with related post IDs
      */
     async getRelatedPostIdsFromWpApi(siteIdentifier, postId, size = 5) {
-        const apiUrl = `https://public-api.wordpress.com/rest/v1.1/sites/${encodeURIComponent(siteIdentifier)}/posts/${postId}/related`;
-
-        // Prepare form data for POST request (following PHP implementation)
-        const formData = new FormData();
-        formData.append('size', size.toString());
-        formData.append('pretty', 'true');
-        
-        // Add filter parameter for post types
-        formData.append('filter[terms][post_type]', 'post');
-        formData.append('filter[terms][post_type]', 'chiral_data');
-
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'POST', // As per WP API documentation
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
+        return new Promise((resolve, reject) => {
+            // Generate unique callback name
+            const callbackName = `chiralCallback_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            
+            // Create callback function
+            window[callbackName] = (data) => {
+                this.utils.log('getRelatedPostIdsFromWpApi', 'JSONP Response:', data);
+                // Clean up
+                delete window[callbackName];
+                if (script.parentNode) {
+                    document.body.removeChild(script);
                 }
+                
+                // Normalize response format
+                if (data.hits && Array.isArray(data.hits)) {
+                    resolve({
+                        results: data.hits,
+                        total: data.total || data.hits.length,
+                        max_score: data.max_score || null
+                    });
+                } else {
+                    resolve({
+                        results: [],
+                        total: 0,
+                        max_score: null
+                    });
+                }
+            };
+
+            // Build URL with JSONP callback parameter
+            const params = new URLSearchParams({
+                size: size.toString(),
+                callback: callbackName
             });
 
-            if (!response.ok) {
-                throw new Error(`WordPress API error: ${response.status} ${response.statusText}`);
-            }
+            const apiUrl = `https://public-api.wordpress.com/rest/v1.1/sites/${encodeURIComponent(siteIdentifier)}/posts/${postId}/related?${params}`;
 
-            const data = await response.json();
-            
-            // The API returns 'hits' array, but we normalize to 'results' for consistency
-            if (data.hits && Array.isArray(data.hits)) {
-                return {
-                    results: data.hits,
-                    total: data.total || data.hits.length,
-                    max_score: data.max_score || null
-                };
-            } else {
-                // No results found or unexpected format
-                return {
-                    results: [],
-                    total: 0,
-                    max_score: null
-                };
-            }
-        } catch (error) {
-            console.warn('Chiral API: Failed to get related post IDs', error);
-            throw new Error(`Failed to fetch related posts: ${error.message}`);
-        }
+            // Create script element for JSONP
+            const script = document.createElement('script');
+            script.src = apiUrl;
+            script.onerror = () => {
+                this.utils.logError('getRelatedPostIdsFromWpApi', 'JSONP script failed to load');
+                delete window[callbackName];
+                if (script.parentNode) {
+                    document.body.removeChild(script);
+                }
+                reject(new Error('JSONP request failed'));
+            };
+
+            // Set timeout
+            const timeoutId = setTimeout(() => {
+                this.utils.logError('getRelatedPostIdsFromWpApi', 'JSONP request timeout');
+                delete window[callbackName];
+                if (script.parentNode) {
+                    document.body.removeChild(script);
+                }
+                reject(new Error('Request timeout'));
+            }, 10000); // 10 second timeout
+
+            // Override callback to clear timeout
+            const originalCallback = window[callbackName];
+            window[callbackName] = (data) => {
+                clearTimeout(timeoutId);
+                originalCallback(data);
+            };
+
+            this.utils.log('getRelatedPostIdsFromWpApi', 'Making JSONP request to:', apiUrl);
+            document.body.appendChild(script);
+        });
     }
 
     /**
