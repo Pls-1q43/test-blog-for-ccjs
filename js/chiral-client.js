@@ -2,7 +2,7 @@
  * Chiral Static Client - Complete Bundle
  * 
  * Version: 1.0.0
- * Build: 2025-06-26T07:23:45.037Z
+ * Build: 2025-06-26T07:26:01.762Z
  * Mode: production
  * 
  * This file contains all necessary modules for the Chiral Static Client.
@@ -1913,10 +1913,16 @@ if (typeof module !== 'undefined' && module.exports) {
         // Method 1: Global config (existing)
         ChiralUtils.log('Checking for window.ChiralConfig', 'info', { 
             exists: typeof window.ChiralConfig !== 'undefined',
-            value: window.ChiralConfig 
+            value: window.ChiralConfig,
+            isFunction: typeof window.ChiralConfig === 'function',
+            isObject: typeof window.ChiralConfig === 'object'
         });
         
-        if (typeof window.ChiralConfig !== 'undefined') {
+        // Check if window.ChiralConfig exists and is a config object (not the ChiralConfig class)
+        if (typeof window.ChiralConfig !== 'undefined' && 
+            typeof window.ChiralConfig === 'object' && 
+            window.ChiralConfig !== null &&
+            typeof window.ChiralConfig !== 'function') {
             try {
                 ChiralUtils.log('Auto-initializing from window.ChiralConfig', 'info');
                 initializeChiralClient(window.ChiralConfig);
