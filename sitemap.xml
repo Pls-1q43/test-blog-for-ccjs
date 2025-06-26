@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://pls-1q43.github.io/test-chiral.html</loc>
+    
+    <lastmod>2025-06-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pls-1q43.github.io/test-script-debug.html</loc>
+    
+    <lastmod>2025-06-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://pls-1q43.github.io/test-simple.html</loc>
     
     <lastmod>2025-06-26</lastmod>
@@ -21,15 +39,6 @@
   
   <url>
     <loc>https://pls-1q43.github.io/test-auto-init.html</loc>
-    
-    <lastmod>2025-06-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://pls-1q43.github.io/test-chiral.html</loc>
     
     <lastmod>2025-06-26</lastmod>
     
