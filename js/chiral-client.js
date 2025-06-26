@@ -2,7 +2,7 @@
  * Chiral Static Client - Complete Bundle
  * 
  * Version: 1.0.0
- * Build: 2025-06-26T07:26:01.762Z
+ * Build: 2025-06-26T07:47:13.062Z
  * Mode: production
  * 
  * This file contains all necessary modules for the Chiral Static Client.
@@ -1131,21 +1131,23 @@ class ChiralAPI {
      */
     async getRelatedPostIdsFromWpApi(siteIdentifier, postId, size = 5) {
         const apiUrl = `https://public-api.wordpress.com/rest/v1.1/sites/${encodeURIComponent(siteIdentifier)}/posts/${postId}/related`;
+
+        // Prepare form data for POST request (following PHP implementation)
+        const formData = new FormData();
+        formData.append('size', size.toString());
+        formData.append('pretty', 'true');
         
-        const requestBody = new URLSearchParams({
-            size: size.toString(),
-            pretty: 'true',
-            'filter[terms][post_type]': 'post,chiral_data'
-        });
+        // Add filter parameter for post types
+        formData.append('filter[terms][post_type]', 'post');
+        formData.append('filter[terms][post_type]', 'chiral_data');
 
         try {
             const response = await fetch(apiUrl, {
-                method: 'POST',
+                method: 'POST', // As per WP API documentation
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
                     'Accept': 'application/json'
-                },
-                body: requestBody
+                }
             });
 
             if (!response.ok) {
