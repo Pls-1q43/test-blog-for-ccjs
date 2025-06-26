@@ -3,11 +3,11 @@
   <title>Hexo</title>
   
   
-  <link href="https://pls-1q43.github.io/atom.xml" rel="self"/>
+  <link href="https://pls-1q43.github.io/test-blog-for-ccjs/atom.xml" rel="self"/>
   
-  <link href="https://pls-1q43.github.io/"/>
+  <link href="https://pls-1q43.github.io/test-blog-for-ccjs/"/>
   <updated>2025-06-26T02:27:19.415Z</updated>
-  <id>https://pls-1q43.github.io/</id>
+  <id>https://pls-1q43.github.io/test-blog-for-ccjs/</id>
   
   <author>
     <name>John Doe</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>我的第一篇文章</title>
-    <link href="https://pls-1q43.github.io/2025/06/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-    <id>https://pls-1q43.github.io/2025/06/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/</id>
+    <link href="https://pls-1q43.github.io/test-blog-for-ccjs/2025/06/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+    <id>https://pls-1q43.github.io/test-blog-for-ccjs/2025/06/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/</id>
     <published>2025-06-26T02:27:19.000Z</published>
     <updated>2025-06-26T02:27:19.415Z</updated>
     
@@ -31,8 +31,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://pls-1q43.github.io/2025/06/26/hello-world/"/>
-    <id>https://pls-1q43.github.io/2025/06/26/hello-world/</id>
+    <link href="https://pls-1q43.github.io/test-blog-for-ccjs/2025/06/26/hello-world/"/>
+    <id>https://pls-1q43.github.io/test-blog-for-ccjs/2025/06/26/hello-world/</id>
     <published>2025-06-26T02:24:56.278Z</published>
     <updated>2025-06-26T02:24:56.278Z</updated>
     
