@@ -2,7 +2,7 @@
  * Chiral Static Client - Complete Bundle
  * 
  * Version: 1.0.0
- * Build: 2025-06-26T06:55:05.175Z
+ * Build: 2025-06-26T07:07:36.298Z
  * Mode: production
  * 
  * This file contains all necessary modules for the Chiral Static Client.
@@ -1949,12 +1949,14 @@ if (typeof module !== 'undefined' && module.exports) {
                         const config = {
                             hubUrl: hubUrl,
                             nodeId: nodeId,
-                            count: count,
-                            enableCache: true,
-                            cacheTTL: 3600,
-                            showThumbnails: true,
-                            showExcerpts: true,
-                            containerId: container
+                            containerId: container,
+                            display: {
+                                count: count,
+                                enableCache: true,
+                                cacheTTL: 3600,
+                                showThumbnails: true,
+                                showExcerpts: true
+                            }
                         };
                         
                         initializeChiralClient(config);
