@@ -90,60 +90,23 @@
   </div>
   </div><article class="md-text content"></article>
 
-<link rel="stylesheet" href="/test-blog-for-ccjs/css/chiral-client.min.css">
-
-<script>
-// 确保配置结构正确
-window.ChiralConfig = {
-    hubUrl: 'https://ckc.akashio.com',
-    nodeId: 'node_6afec7e63524cfff3db726467e743536',
-    count: 5,
-    enableCache: true,
-    cacheTTL: 3600,
-    showThumbnails: true,
-    showExcerpts: true,
-    locale: 'en',
-    debug: true
-};
-
-console.log('ChiralConfig set:', window.ChiralConfig);
-console.log('hubUrl check:', window.ChiralConfig.hubUrl, 'length:', window.ChiralConfig.hubUrl.length);
-console.log('nodeId check:', window.ChiralConfig.nodeId, 'length:', window.ChiralConfig.nodeId.length);
-
-// 添加详细的调试信息
-window.addEventListener('load', function() {
-    console.log('=== Chiral Client Debug ===');
-    console.log('ChiralClient available:', typeof window.ChiralClient);
-    console.log('ChiralConfig available:', typeof window.ChiralConfig);
-    console.log('chiralClientInstance:', typeof window.chiralClientInstance);
-    
-    if (typeof window.chiralClientInstance !== 'undefined') {
-        console.log('Client info:', window.chiralClientInstance.getInfo());
-    }
-    
-    // 手动测试初始化
-    if (typeof window.ChiralClient !== 'undefined') {
-        try {
-            console.log('Attempting manual initialization...');
-            console.log('Config being passed:', window.ChiralConfig);
-            const testClient = new window.ChiralClient.Client(window.ChiralConfig);
-            console.log('Manual initialization successful:', testClient.getInfo());
-        } catch (error) {
-            console.error('Manual initialization failed:', error);
-            console.error('Error stack:', error.stack);
-        }
-    }
-});
-</script>
-
-<div id="chiral-connector-related-posts" 
-     data-post-url="https://pls-1q43.github.io/test-blog-for-ccjs/2025/06/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/"
+<!-- Chiral 相关文章 -->
+<div id="chiral-related-posts" 
+     data-hub-url="https://ckc.akashio.com"
      data-node-id="node_6afec7e63524cfff3db726467e743536"
-     data-hub-url="https://ckc.akashio.com">
-    Loading related Chiral data...
+     data-count="5">
+    <h3>相关文章</h3>
+    <div class="loading">正在加载相关文章...</div>
 </div>
 
-<script src="/test-blog-for-ccjs/js/chiral-client.min.js"></script>
+<!-- 一行引入 Chiral 客户端 -->
+<link rel="stylesheet" href="/test-blog-for-ccjs/css/chiral-client.min.css">
+<script src="/test-blog-for-ccjs/js/chiral-client.min.js" 
+        data-container="chiral-related-posts"
+        data-hub-url="https://ckc.akashio.com"
+        data-node-id="node_6afec7e63524cfff3db726467e743536"
+        data-count="5"
+        data-auto-init="true"></script>
 
 <!-- 临时调试代码 -->
 <script>
