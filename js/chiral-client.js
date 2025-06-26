@@ -2,7 +2,7 @@
  * Chiral Static Client - Complete Bundle
  * 
  * Version: 1.0.0
- * Build: 2025-06-26T07:07:36.298Z
+ * Build: 2025-06-26T07:14:56.748Z
  * Mode: production
  * 
  * This file contains all necessary modules for the Chiral Static Client.
@@ -687,6 +687,9 @@ class ChiralConfig {
             hubUrl: '',
             nodeId: '',
             
+            // Container settings
+            containerId: 'chiral-related-posts',
+            
             // Display settings
             display: {
                 count: 5,
@@ -709,6 +712,8 @@ class ChiralConfig {
 
         // Validate required fields
         if (!config.hubUrl || typeof config.hubUrl !== 'string' || config.hubUrl.trim() === '') {
+            console.error('Config validation failed - hubUrl:', config.hubUrl, 'type:', typeof config.hubUrl);
+            console.error('Full config object:', config);
             throw new Error('Chiral Static Client: hubUrl is required and cannot be empty');
         }
 
@@ -1958,6 +1963,8 @@ if (typeof module !== 'undefined' && module.exports) {
                                 showExcerpts: true
                             }
                         };
+                        
+                        ChiralUtils.log('Config object created', 'info', config);
                         
                         initializeChiralClient(config);
                         ChiralUtils.log('Auto-initialization completed successfully', 'info');
