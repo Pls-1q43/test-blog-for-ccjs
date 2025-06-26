@@ -93,13 +93,47 @@
 <link rel="stylesheet" href="/test-blog-for-ccjs/css/chiral-client.min.css">
 
 <script>
+// 确保配置结构正确
 window.ChiralConfig = {
     hubUrl: 'https://ckc.akashio.com',
     nodeId: 'node_6afec7e63524cfff3db726467e743536',
-    display: {
-        count: 5
-    }
+    count: 5,
+    enableCache: true,
+    cacheTTL: 3600,
+    showThumbnails: true,
+    showExcerpts: true,
+    locale: 'en',
+    debug: true
 };
+
+console.log('ChiralConfig set:', window.ChiralConfig);
+console.log('hubUrl check:', window.ChiralConfig.hubUrl, 'length:', window.ChiralConfig.hubUrl.length);
+console.log('nodeId check:', window.ChiralConfig.nodeId, 'length:', window.ChiralConfig.nodeId.length);
+
+// 添加详细的调试信息
+window.addEventListener('load', function() {
+    console.log('=== Chiral Client Debug ===');
+    console.log('ChiralClient available:', typeof window.ChiralClient);
+    console.log('ChiralConfig available:', typeof window.ChiralConfig);
+    console.log('chiralClientInstance:', typeof window.chiralClientInstance);
+    
+    if (typeof window.chiralClientInstance !== 'undefined') {
+        console.log('Client info:', window.chiralClientInstance.getInfo());
+    }
+    
+    // 手动测试初始化
+    if (typeof window.ChiralClient !== 'undefined') {
+        try {
+            console.log('Attempting manual initialization...');
+            console.log('Config being passed:', window.ChiralConfig);
+            const testClient = new window.ChiralClient.Client(window.ChiralConfig);
+            console.log('Manual initialization successful:', testClient.getInfo());
+        } catch (error) {
+            console.error('Manual initialization failed:', error);
+            console.error('Error stack:', error.stack);
+        }
+    }
+});
 </script>
 
 <div id="chiral-connector-related-posts" 
