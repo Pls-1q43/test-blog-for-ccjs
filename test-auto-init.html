@@ -20,15 +20,15 @@
   <title>Hexo</title>
 
   
-    <meta name="description" content="Chiral Client Test            Chiral Client Test Page                        相关文章         正在加载相关文章...                               console.log(&#39;&#x3D;&#x3D;&#x3D; Chiral Client Manual Debug &#x3D;&#x3D;&#x3D;&#39;);         co">
+    <meta name="description" content="Chiral Client Auto-Init Test            Chiral Client 自动初始化测试                        相关文章         正在加载相关文章...                               console.log(&#39;&#x3D;&#x3D;&#x3D; Auto-Init Test &#x3D;&#x3D;&#x3D;&#39;);         consol">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://pls-1q43.github.io/test-chiral.html">
+<meta property="og:url" content="https://pls-1q43.github.io/test-auto-init.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Chiral Client Test            Chiral Client Test Page                        相关文章         正在加载相关文章...                               console.log(&#39;&#x3D;&#x3D;&#x3D; Chiral Client Manual Debug &#x3D;&#x3D;&#x3D;&#39;);         co">
+<meta property="og:description" content="Chiral Client Auto-Init Test            Chiral Client 自动初始化测试                        相关文章         正在加载相关文章...                               console.log(&#39;&#x3D;&#x3D;&#x3D; Auto-Init Test &#x3D;&#x3D;&#x3D;&#39;);         consol">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-06-26T05:49:53.707Z">
-<meta property="article:modified_time" content="2025-06-26T05:49:53.707Z">
+<meta property="article:published_time" content="2025-06-26T05:49:53.719Z">
+<meta property="article:modified_time" content="2025-06-26T05:49:53.719Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -78,102 +78,51 @@
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/test-blog-for-ccjs/test-blog-for-ccjs/">Home</a>
 
   <span class="sep"></span>
-  <a class="cap breadcrumb" href="/test-blog-for-ccjs/test-chiral.html"></a>
+  <a class="cap breadcrumb" href="/test-blog-for-ccjs/test-auto-init.html"></a>
   </div>
-<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2025-06-26T05:49:53.707Z">2025-06-26</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2025-06-26T05:49:53.707Z">2025-06-26</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2025-06-26T05:49:53.719Z">2025-06-26</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2025-06-26T05:49:53.719Z">2025-06-26</time></span></div></div></div>
     
   </div>
   </div><article class="md-text content"><!DOCTYPE html>
 <html>
 <head>
-    <title>Chiral Client Test</title>
+    <title>Chiral Client Auto-Init Test</title>
     <link rel="stylesheet" href="/test-blog-for-ccjs/css/chiral-client.min.css">
 </head>
 <body>
-    <h1>Chiral Client Test Page</h1>
+    <h1>Chiral Client 自动初始化测试</h1>
     
-    <!-- Chiral 相关文章 -->
+    <!-- Chiral 相关文章 - 使用自动初始化 -->
     <div id="chiral-related-posts">
         <h3>相关文章</h3>
         <div class="loading">正在加载相关文章...</div>
     </div>
 
-    <!-- 引入 Chiral 客户端 (移除自动初始化) -->
-    <script src="/test-blog-for-ccjs/js/chiral-client.min.js"></script>
+    <!-- 一行引入 Chiral 客户端 - 自动初始化 -->
+    <script src="/test-blog-for-ccjs/js/chiral-client.min.js" 
+            data-container="chiral-related-posts"
+            data-hub-url="https://ckc.akashio.com"
+            data-node-id="node_6afec7e63524cfff3db726467e743536"
+            data-count="5"
+            data-auto-init="true"></script>
 
     <script>
-        console.log('=== Chiral Client Manual Debug ===');
-        console.log('Test page loaded');
-        console.log('ChiralClient available:', typeof window.ChiralClient);
-        console.log('ChiralUtils available:', typeof window.ChiralUtils);
+        console.log('=== Auto-Init Test ===');
+        console.log('Page loaded, waiting for auto-initialization...');
         
-        // 手动初始化配置
-        const config = {
-            hubUrl: 'https://ckc.akashio.com',
-            nodeId: 'node_6afec7e63524cfff3db726467e743536',
-            count: 5,
-            enableCache: true,
-            cacheTTL: 3600,
-            showThumbnails: true,
-            showExcerpts: true,
-            containerId: 'chiral-related-posts'
-        };
-        
-        console.log('Manual config:', config);
-        
-        // 等待DOM完全加载后手动初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, starting manual initialization...');
-            
-            try {
-                // 手动初始化
-                console.log('Creating ChiralClient instance...');
-                const client = window.ChiralClient.init(config);
-                console.log('Client created:', client);
-                
-                // 存储到全局变量
-                window.chiralClientInstance = client;
-                console.log('Client stored globally');
-                
-            } catch (error) {
-                console.error('Manual initialization failed:', error);
-                console.error('Error stack:', error.stack);
-                
-                // 显示详细错误信息
-                const container = document.getElementById('chiral-related-posts');
-                if (container) {
-                    container.innerHTML = `
-                        <div class="chiral-error">
-                            <h4>初始化失败</h4>
-                            <p><strong>错误:</strong> ${error.message}</p>
-                            <pre>${error.stack}</pre>
-                        </div>
-                    `;
-                }
-            }
-        });
-        
-        // 延迟检查初始化状态
+        // 检查初始化状态
         setTimeout(() => {
             console.log('=== After 3 seconds ===');
             console.log('chiralClientInstance:', typeof window.chiralClientInstance);
             
             if (window.chiralClientInstance) {
+                console.log('✅ Auto-initialization successful!');
                 console.log('Client info:', window.chiralClientInstance.getInfo());
-                
-                // 尝试测试连接
-                window.chiralClientInstance.testConnection()
-                    .then(result => {
-                        console.log('Connection test result:', result);
-                    })
-                    .catch(err => {
-                        console.error('Connection test failed:', err);
-                    });
             } else {
-                console.log('Client instance still not available');
+                console.log('❌ Auto-initialization failed');
                 const container = document.getElementById('chiral-related-posts');
                 if (container) {
-                    console.log('Current container content:', container.innerHTML);
+                    console.log('Container content:', container.innerHTML);
                 }
             }
         }, 3000);
@@ -188,7 +137,7 @@
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">On This Page</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">Chiral Client Test Page</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#chiral-related-posts"><span class="toc-text">相关文章</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer">
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">On This Page</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">Chiral Client 自动初始化测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#chiral-related-posts"><span class="toc-text">相关文章</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer">
 
 <a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>Scroll to Top</span></a></div></widget>
 </div></aside><div class='float-panel'>
@@ -199,7 +148,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
   </button>
 </div>
-</div><div class="scripts"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://pls-1q43.github.io/test-chiral.html","author":{"@type":"Person","name":"John Doe","sameAs":[]},"name":"Hexo","description":"\n\n\n    Chiral Client Test\n    \n\n\n    Chiral Client Test Page\n    \n    \n    \n        相关文章\n        正在加载相关文章...\n    \n\n    \n    \n\n    \n        console.log('=== Chiral Client Manual Debug ===');\n       ...","url":"https://pls-1q43.github.io/test-chiral.html"}</script>
+</div><div class="scripts"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://pls-1q43.github.io/test-auto-init.html","author":{"@type":"Person","name":"John Doe","sameAs":[]},"name":"Hexo","description":"\n\n\n    Chiral Client Auto-Init Test\n    \n\n\n    Chiral Client 自动初始化测试\n    \n    \n    \n        相关文章\n        正在加载相关文章...\n    \n\n    \n    \n\n    \n        console.log('=== Auto-Init Test ===');\n        con...","url":"https://pls-1q43.github.io/test-auto-init.html"}</script>
 
 
 <script type="text/javascript">
